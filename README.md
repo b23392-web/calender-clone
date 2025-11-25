@@ -1,43 +1,56 @@
-# calender-clone
-📅 Google Calendar Clone — Modern Scheduling App
+# Google Calendar Clone – Web Application
 
-A fully interactive, browser-based calendar application inspired by Google Calendar, built using React, TypeScript, Tailwind CSS, Supabase, and modern UI libraries.
-The app offers an intuitive layout with month/week/day views, event management features, and real-time data syncing.
+A fully functional calendar and scheduling application inspired by Google Calendar, built with React, TypeScript, Tailwind CSS, and Supabase. The application supports multi-view calendar navigation, secure authentication, real-time updates, and a clean UI/UX modeled after modern calendar interfaces.
 
-✨ Highlights
-📆 Calendar Views
+---
 
-Month View — clean grid layout showing all events at a glance
+## 1. Overview
 
-Week View — time-slot grid with hour-based divisions
+This project implements essential calendar features such as month/week/day views, event creation and editing, color categorization, all-day events, and timezone handling.
 
-Day View — focused 24-hour schedule
+The UI/UX draws inspiration from:
+- Google Calendar’s layout and user flows  
+- shadcn/ui for modals, dialogs, and component styling  
+- Tailwind CSS for utility-driven design consistency
 
-Quick navigation between dates and views
+---
 
-Smooth transitions & consistent date selection
+## 2. Features
 
-📝 Event Management
+### Calendar Views
+- Monthly, weekly, and daily views  
+- Continuous navigation between dates  
+- “Today” quick jump  
+- Responsive design for large and small screens  
 
-Create, edit, and delete events via modal
+### Event Management
+- Create, edit, and delete events  
+- Includes title, description, start/end time, all-day toggle, color, location, and timezone  
+- Supports overlapping events with visual stacking  
+- Database prepared for recurring events (RRULE)  
+- Automatic UI refresh after modifications  
 
-Set:
+### Authentication & Security
+- Email/password authentication with Supabase Auth  
+- Secure session management  
+- Row Level Security ensures users only read/write their own events  
 
-Title, optional description
+---
 
-Start/end time
+## 3. Setup and Run Instructions
 
-All-day toggle
+### Prerequisites
+- Node.js 18+  
+- Git  
+- Supabase project configured  
 
-Color labels
+### Installation
 
-Location
+```bash
+git clone <REPOSITORY_URL>
+cd calendar-app
+npm install
 
-Timezone
-
-Events auto-refresh after any change
-
-Handles overlapping events with stacked layouts
 
 🎨 UI/UX Experience
 
@@ -80,6 +93,12 @@ Real-time subscriptions for event updates
 
 Secure authentication using email/password
 
+Environment Variables
+Create .env:
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
+
+
 🗄️ Database Schema
 CREATE TABLE public.events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -112,13 +131,6 @@ Installation
 git clone <REPO_URL>
 cd calendar-app
 npm install
-
-Environment Variables
-
-Create .env:
-
-VITE_SUPABASE_URL=your-url
-VITE_SUPABASE_ANON_KEY=your-key
 
 Run Development Server
 npm run dev
@@ -212,8 +224,6 @@ Calendar sharing
 
 Push/email reminders
 
-ICS import/export
-
 Themes + dark mode
 
 Advanced recurring events
@@ -245,3 +255,6 @@ Components from shadcn/ui
 Icons from Lucide
 
 Backend powered by Supabase
+Conclusion
+
+This project delivers a complete and secure calendar application modeled after Google Calendar. Its architecture emphasizes modularity, responsiveness, and scalability. With planned future enhancements, it can serve as the foundation for a production-level scheduling system.

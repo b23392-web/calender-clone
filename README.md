@@ -1,194 +1,269 @@
 # calender-clone
 cloning google calender
-Google Calendar Clone (Full-Stack • High Fidelity)
+📅 Google Calendar Clone — Modern Scheduling App
 
-A high-fidelity, full-stack clone of Google Calendar, built to mirror the real product’s look, feel, and behavior.
-This project focuses on delivering smooth UI interactions, realistic calendar logic, and a clean API for managing events.
+A fully interactive, browser-based calendar application inspired by Google Calendar, built using React, TypeScript, Tailwind CSS, Supabase, and modern UI libraries.
+The app offers an intuitive layout with month/week/day views, event management features, and real-time data syncing.
 
-I built this to deepen my understanding of complex UI systems, time-based layouts, and real-world frontend↔backend syncing.
+✨ Highlights
+📆 Calendar Views
 
-🔥 Features
-🖥️ Frontend
+Month View — clean grid layout showing all events at a glance
 
-High-fidelity recreation of Google Calendar’s UI
+Week View — time-slot grid with hour-based divisions
 
-Month, Week, and Day views
+Day View — focused 24-hour schedule
 
-Create, edit, and delete events directly on the calendar
+Quick navigation between dates and views
 
-Modal / side-panel for event details
+Smooth transitions & consistent date selection
 
-Smooth transitions + subtle animations
+📝 Event Management
 
-Fully responsive layout
+Create, edit, and delete events via modal
 
-Keyboard & mouse friendly interactions
+Set:
 
-🛠️ Backend
+Title, optional description
 
-RESTful API for event CRUD
+Start/end time
 
-Data persistence with your choice of DB (SQLite/Postgres/MongoDB)
+All-day toggle
 
-Event validation (start < end, correct date formats, etc.)
+Color labels
 
-Handles overlapping events
+Location
 
-Optional: recurring events (RRULE-style)
+Timezone
 
-🏗️ Tech Stack
+Events auto-refresh after any change
 
-You can adapt this to your preferred stack.
-My recommended setup:
+Handles overlapping events with stacked layouts
 
+🎨 UI/UX Experience
+
+Interface inspired by the Google Calendar visual language
+
+shadcn/ui + Tailwind CSS used for component styling and form elements
+
+Minimalistic, responsive layout for desktop and mobile
+
+Highlight indicators for today's date
+
+Color-coded events
+
+Thoughtful hover states and micro-animations
+
+🧱 Tech Stack
 Frontend
 
-React or Next.js
+React 18 + TypeScript
 
-Tailwind CSS / SCSS
+Vite (fast dev tooling)
 
-Zustand / Redux / Context for state
+Tailwind CSS
 
-Framer Motion (optional animations)
+shadcn/ui
+
+date-fns for date handling
+
+@dnd-kit for drag & drop (if enabled)
+
+React Router for navigation
+
+TanStack Query for server state fetching
 
 Backend
 
-Node.js + Express (or Django / Go)
+Supabase (PostgreSQL + Auth + RLS)
 
-SQLite / PostgreSQL / MongoDB
+Real-time subscriptions for event updates
 
-Prisma / Sequelize / Mongoose
+Secure authentication using email/password
 
-📦 Getting Started
-1. Clone the repository
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+🗄️ Database Schema
+CREATE TABLE public.events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT,
+  start_time TIMESTAMPTZ NOT NULL,
+  end_time TIMESTAMPTZ NOT NULL,
+  all_day BOOLEAN DEFAULT false,
+  color TEXT DEFAULT '#4285f4',
+  location TEXT,
+  recurrence_rule TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
 
-2. Install dependencies
-Frontend
-cd frontend
+
+Row Level Security ensures each user only accesses their own events.
+
+🚀 Getting Started
+Prerequisites
+
+Node.js 18+
+
+Git
+
+Supabase Project (with the schema above)
+
+Installation
+git clone <REPO_URL>
+cd calendar-app
 npm install
 
-Backend
-cd backend
-npm install
+Environment Variables
 
-3. Environment setup
+Create .env:
 
-Create a .env in the backend:
+VITE_SUPABASE_URL=your-url
+VITE_SUPABASE_ANON_KEY=your-key
 
-DATABASE_URL=your_database_url_here
-PORT=5000
-
-4. Run the project
-Backend
-npm run dev
-
-Frontend
+Run Development Server
 npm run dev
 
 
-Frontend runs on → http://localhost:3000
+Go to: http://localhost:5173
 
-Backend runs on → http://localhost:5000
+🗂️ Project Structure
+src/
+├── components/
+│   ├── calendar/
+│   │   ├── CalendarHeader.tsx
+│   │   ├── MonthView.tsx
+│   │   ├── WeekView.tsx
+│   │   ├── DayView.tsx
+│   │   └── EventModal.tsx
+│   └── ui/               # shadcn components
+├── pages/
+│   ├── Auth.tsx
+│   ├── Index.tsx
+│   └── NotFound.tsx
+├── integrations/
+│   └── supabase/
+│       ├── client.ts
+│       └── types.ts
+├── hooks/
+├── lib/
+└── App.tsx
 
-🧠 Architecture Overview
-Frontend
+🎨 Design & UX Inspiration (Requested)
 
-Calendar grid dynamically renders based on selected view
+Your UI/UX draws from three main sources:
 
-Global state stores events, current date, and UI modes
+1. Google Calendar
 
-API layer syncs all event actions
+Grid layouts
 
-Animations smooth out transitions between Month ↔ Week ↔ Day
+Colors
 
-Backend
+Top navigation
 
-Simple RESTful API
+Clean visual hierarchy
 
-CRUD endpoints:
+2. shadcn/ui
 
-GET /events
+Dialogs
 
-POST /events
+Form inputs
 
-PUT /events/:id
+Buttons
 
-DELETE /events/:id
+Transitions
 
-Logic for:
+3. Tailwind CSS
 
-conflicting/overlapping events
+Utility classes for spacing, colors, responsiveness
 
-invalid time ranges
+Smooth hover & focus states
 
-recurring rules (if implemented)
+Custom design tokens
 
-🧩 Edge Cases & Logic Notes
-✔ Event Overlaps
+This combination gives the app a polished, platform-grade experience without copying any single tool directly.
 
-Events that overlap are either:
+🔐 Security
 
-displayed side-by-side, or
+Supabase Auth secures all endpoints
 
-rejected by the backend
-(depending on your implementation)
+Row Level Security ensures:
 
-✔ Recurring Events
+Users can only READ their own events
 
-If implemented, rules follow classic RRULE patterns: daily / weekly / monthly.
+Users can only INSERT events with their own user_id
 
-✔ Time Zones
+UPDATE/DELETE restricted to owner
 
-Dates stored in UTC, displayed in the user’s local timezone.
+🧠 Behind the Scenes (Event Logic)
+Event Creation
 
-✔ Dragging / Resizing
+Click any slot → pre-filled modal → validate → store → UI refresh
 
-Drag to create a new event
+Editing
 
-Edge-resize to change duration
+Open the modal with existing details
 
-“Preview” state before confirming the event
+Save → updated in Supabase → instantly reflected
 
-These contribute heavily to the natural “Google Calendar feel.”
+Overlapping Events
 
-🎨 Interaction & Animation Notes
+Stacked visually
 
-Smooth interaction was a priority.
-This includes:
+Width is dynamically adjusted
 
-Fade-in event modals
+All-Day Events
 
-Animated transitions between views
+Rendered above time slots
 
-Hover effects on events
+Ignore hourly boundaries
 
-Snappy grid highlighting while selecting time slots
+🔧 Scripts
 
-All animations are kept subtle, not distracting.
+npm run dev — development mode
 
-📌 Future Improvements
+npm run build — production build
 
-Some ideas for expanding the project:
+npm run preview — preview build
 
-Shared calendars
+npm run lint — ESLint checks
 
-User authentication (Google OAuth)
+🚧 Future Enhancements
 
-Real-time collaboration (WebSockets)
+Calendar sharing
 
-Color-coded calendars
+Push/email reminders
 
-Email/push reminders
+ICS import/export
 
-Offline support
+Themes + dark mode
+
+Advanced recurring events
+
+Drag-to-resize events
+
+Offline caching & PWA mode
 
 🤝 Contributing
 
-Pull requests are welcome!
-If you’d like to suggest improvements, feel free to open an issue.
+Fork repo
 
-📜 License
+Create feature branch
 
-This project is licensed under the Apache License.
+Commit changes
+
+Submit PR
+
+📄 License
+
+This project uses open-source technologies; you may adapt or extend as needed.
+
+🙌 Acknowledgements
+
+UI inspiration from Google Calendar
+
+Components from shadcn/ui
+
+Icons from Lucide
+
+Backend powered by Supabase

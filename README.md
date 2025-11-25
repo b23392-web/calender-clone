@@ -1,5 +1,4 @@
 # calender-clone
-cloning google calender
 📅 Google Calendar Clone — Modern Scheduling App
 
 A fully interactive, browser-based calendar application inspired by Google Calendar, built using React, TypeScript, Tailwind CSS, Supabase, and modern UI libraries.
@@ -127,27 +126,6 @@ npm run dev
 
 Go to: http://localhost:5173
 
-🗂️ Project Structure
-src/
-├── components/
-│   ├── calendar/
-│   │   ├── CalendarHeader.tsx
-│   │   ├── MonthView.tsx
-│   │   ├── WeekView.tsx
-│   │   ├── DayView.tsx
-│   │   └── EventModal.tsx
-│   └── ui/               # shadcn components
-├── pages/
-│   ├── Auth.tsx
-│   ├── Index.tsx
-│   └── NotFound.tsx
-├── integrations/
-│   └── supabase/
-│       ├── client.ts
-│       └── types.ts
-├── hooks/
-├── lib/
-└── App.tsx
 
 🎨 Design & UX Inspiration (Requested)
 
